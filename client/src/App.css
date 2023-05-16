@@ -1,0 +1,35 @@
+.list-container {
+  margin-top: 100px;
+
+}
+
+.edit-icon-style {
+  color: goldenrod;
+}
+.delete-icon-style {
+  color: red;
+}
+
+.btn-style {
+  border-width: 0px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+
+@media (prefers-reduced-motion: no-preference) {
+  
+}
+
+
+
+
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
