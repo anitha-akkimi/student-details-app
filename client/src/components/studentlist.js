@@ -7,15 +7,17 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import EachStudent from './eachStudent';
+import { Button } from "@mui/material"
 
 
 
 const ListOfStudents = () => {
     const [details, setDetails] = useState([])
+    const [name, setName] = useState('')
 
     const getDetails = async () => {
         try {
-            const response = await fetch("http://localhost:5001/students")
+            const response = await fetch("http://localhost:5001/students/")
             const data = await response.json()
             
             
@@ -43,8 +45,46 @@ const ListOfStudents = () => {
         const filteredData = details.filter(each => each.sno !== id)
         setDetails(filteredData)
     }
+
+    const onSubmitSearchResults =  async (e) => {
+      e.preventDefault();
+
+      const result = name
+
+      try {
+          const response = await fetch(`http://localhost:5001/?name=${result}`)
+          const data = await response.json()
+
+          const updatedData = data.rows.map(each => ({
+            sno : each.sno,
+            studentId : each.student_id,
+            studentName : each.student_name,
+            studentBranch : each.student_branch,
+            studentClass : each.student_class
+        }))
+
+        console.log(updatedData)
+
+        setDetails(updatedData)
+
+          
+          
+      } catch (err) {
+          console.error(err.message)
+      }
+      
+      
+  }
+
+
     
   return (
+    <>
+    <form className="d-flex" onChange={onSubmitSearchResults}>
+            <input type="search" className="form-control mt-5 mb-5 mr-3" placeholder="search" onChange={(e) => setName(e.target.value.toLowerCase())}/>
+            <Button type="submit" variant="contained" className="button-style mt-5">Search</Button>
+    </form>
+
     <TableContainer className='mr-5'>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
@@ -77,6 +117,7 @@ const ListOfStudents = () => {
         </TableBody>
       </Table>
     </TableContainer>
+    </>
   );
 }
 

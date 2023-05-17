@@ -71,4 +71,21 @@ app.delete('/students/:id', async(req,res) => {
 
 })
 
+// filter search results
+
+app.get('/', async (req, res) => {
+    try {
+        
+        const {name} = req.query
+        console.log(name)
+        const result = name.toLowerCase()
+        const searchResults = await pool.query(`SELECT * FROM student_table WHERE LOWER(student_name) LIKE '%${result}%'`)
+
+        res.send(searchResults)
+        
+    } catch (e) {
+        console.error(e.message)
+    }
+})
+
 app.listen(5001,() => {console.log("server running on port 5001..")})

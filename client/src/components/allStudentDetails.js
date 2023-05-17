@@ -6,9 +6,11 @@ const AllStudentDetails = () => {
     const[name, setName] = useState('')
     const [branch,setBranch] = useState('')
     const [stuClass,setStuClass] = useState('')
+    const [error, setError] = useState('')
 
     const onSubmitForm = async (e) => {
         e.preventDefault();
+        if(id!=='' && name!=='' && branch!=='' && stuClass!==''){
         const newObj = {
             student_id : id,
             student_name : name,
@@ -28,7 +30,11 @@ const AllStudentDetails = () => {
         console.error(e.message)
     }
 
-        
+   }
+   else {
+    setError("Please Enter Valid Details")
+    alert("Enter valid details")
+   } 
         
     }
     
@@ -59,6 +65,8 @@ const AllStudentDetails = () => {
                 
                 <Button variant="contained" className="button-ele" onClick={onSubmitForm}>Add</Button>
             </form>
+            <p className='text-danger'>{error}</p>
+
         </div>
     )
 }

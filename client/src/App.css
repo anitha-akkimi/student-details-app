@@ -16,6 +16,13 @@
   cursor: pointer;
 }
 
+.button-style {
+  height: 40px;
+}
+
+.button-ele {
+  height: 80px;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   
