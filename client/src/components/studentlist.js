@@ -76,6 +76,19 @@ const ListOfStudents = () => {
       
   }
 
+  const sortDetails = (e) => {
+    if(e.target.value === 'ASC'){
+      const asce = [...details].sort((a,b) => a.studentId - b.studentId)
+      setDetails(asce)
+    }
+
+    else if(e.target.value === 'DESC'){
+      const desc = [...details].sort((a,b) => b.studentId - a.studentId)
+      setDetails(desc)
+    }
+
+  }
+
 
     
   return (
@@ -84,6 +97,11 @@ const ListOfStudents = () => {
             <input type="search" className="form-control mt-5 mb-5 mr-3" placeholder="search" onChange={(e) => setName(e.target.value.toLowerCase())}/>
             <Button type="submit" variant="contained" className="button-style mt-5">Search</Button>
     </form>
+
+    <select className='m-3' onChange={sortDetails}>
+      <option value="ASC">top to bottom</option>
+      <option value="DESC">bottom to top</option>
+    </select>
 
     <TableContainer className='mr-5'>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
