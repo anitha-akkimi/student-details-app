@@ -24,7 +24,7 @@ const style = {
   const handleClose = () => setOpen(false);
     
   const {student} = props
-  const {sno,studentId, studentName, studentBranch, studentClass} = student
+  const {sno,studentId, studentName, studentBranch, studentClass, studentImage} = student
 
 
     const [id, setId] = useState(studentId)
@@ -32,6 +32,7 @@ const style = {
  
     const [branch,setBranch] = useState(studentBranch)
     const [stuClass,setStuClass] = useState(studentClass)
+    const [image, setImage] = useState(studentImage)
 
     const onEditDetails = async (e) => {
         e.preventDefault();
@@ -39,7 +40,8 @@ const style = {
             student_id : id,
             student_name : name,
             student_branch : branch,
-            student_class : stuClass
+            student_class : stuClass,
+            student_img : image
         }
 
         try {
@@ -57,6 +59,30 @@ const style = {
         }
 
     }
+
+    const uploadImage = async (e) => {
+      const file = e.target.files[0]
+      const base64 = await convertbase64file(file)
+      //console.log(base64)
+      setImage(base64)
+  }
+
+  const convertbase64file = (file) => {
+      return new Promise((resolve, reject) => {
+          const fileReader = new FileReader();
+          fileReader.readAsDataURL(file)
+    
+          fileReader.onload = () => {
+            resolve(fileReader.result)
+          }
+    
+          fileReader.onerror = (error) => {
+            reject(error)
+          }
+        })
+  }
+
+    
 
   return (
     <div>
@@ -91,6 +117,7 @@ const style = {
                 <label>Student class</label>
                 <br/>
                 <input type="text" className="form-control" placeholder="Enter Student class" value={stuClass} onChange={(e) => setStuClass(e.target.value)}/>
+                <input type='file' onChange={(e) => uploadImage(e)}/>
                 </div>
                 
                 <Button variant="contained" className="button-ele" onClick={onEditDetails}>Edit</Button>

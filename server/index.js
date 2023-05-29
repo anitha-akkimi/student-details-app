@@ -1,11 +1,11 @@
-const express = require('express');
-const app = express();
-const cors = require('cors');
-const pool = require('./db')
-
-// middlewares
-app.use(express.json())
+const express = require("express")
+const app = express()
+const cors = require("cors")
+const pool = require("./db")
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended : 'true' }));
 app.use(cors())
+
 
 
 // Routes
@@ -14,8 +14,8 @@ app.use(cors())
 
 app.post('/students', async(req,res) => {
     try {
-        const { student_id,student_name,student_branch,student_class } = req.body
-        const newStudentDetails = await pool.query('INSERT INTO student_table (student_id,student_name,student_branch,student_class) VALUES($1, $2, $3, $4)',[student_id,student_name, student_branch, student_class] );
+        const { student_id,student_name,student_branch,student_class, student_img } = req.body
+        const newStudentDetails = await pool.query('INSERT INTO student_table (student_id,student_name,student_branch,student_class, student_img) VALUES($1, $2, $3, $4, $5)',[student_id,student_name, student_branch, student_class, student_img] );
 
         res.json(newStudentDetails)
 
@@ -54,8 +54,8 @@ app.get('/students/:id', async(req, res) => {
 //update student details
 app.put('/students/:id', async (req,res) => {
     const {id} = req.params
-    const { student_id,student_name,student_branch,student_class } = req.body
-    const updateStudentDetails = await pool.query('UPDATE student_table SET student_id = $1, student_name = $2, student_branch = $3, student_class=$4 WHERE sno=$5', [student_id, student_name, student_branch, student_class, id])
+    const { student_id,student_name,student_branch,student_class, student_img} = req.body
+    const updateStudentDetails = await pool.query('UPDATE student_table SET student_id = $1, student_name = $2, student_branch = $3, student_class=$4, student_img = $5 WHERE sno=$6', [student_id, student_name, student_branch, student_class, student_img, id])
 
     res.send("student details updated !!")
 })

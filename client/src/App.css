@@ -24,6 +24,12 @@
   height: 80px;
 }
 
+.image-style {
+  height: 40px;
+  width: 70px;
+  border-radius: 10px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   
 }

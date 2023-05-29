@@ -26,7 +26,8 @@ const ListOfStudents = () => {
                 studentId : each.student_id,
                 studentName : each.student_name,
                 studentBranch : each.student_branch,
-                studentClass : each.student_class
+                studentClass : each.student_class,
+                studentImage : each.student_img
             }))
 
             setDetails(updatedData)
@@ -60,7 +61,8 @@ const ListOfStudents = () => {
             studentId : each.student_id,
             studentName : each.student_name,
             studentBranch : each.student_branch,
-            studentClass : each.student_class
+            studentClass : each.student_class,
+            
         }))
 
         console.log(updatedData)
@@ -111,6 +113,7 @@ const ListOfStudents = () => {
             <TableCell align="right">Student Name</TableCell>
             <TableCell align="right">Student Branch</TableCell>
             <TableCell align="right">Student Class</TableCell>
+            <TableCell align="right">Student Image</TableCell>
             <TableCell>Icons</TableCell>
           </TableRow>
         </TableHead>

@@ -9,7 +9,8 @@ import EditDetails from './editDetails';
 
 const EachStudent = (props) => {
     const {student, onDelete} = props
-    const {sno,studentId, studentName, studentBranch, studentClass} = student
+    const {sno,studentId, studentName, studentBranch, studentClass, studentImage} = student
+    console.log(studentImage)
 
     
     const onDeleteDetails = async (id) => {
@@ -31,6 +32,7 @@ const EachStudent = (props) => {
               <TableCell align="right">{studentName}</TableCell>
               <TableCell align="right">{studentBranch}</TableCell>
               <TableCell align="right">{studentClass}</TableCell>
+              <TableCell align="right"><img src={studentImage} class="image-style"/></TableCell>
               <TableCell align="right"><div className='d-flex'>
                 <EditDetails student={student}/>
                 <button className='btn-style' onClick={() => onDeleteDetails(sno)}><RemoveCircleOutlineIcon className='delete-icon-style mr-3'/></button>
